@@ -12,17 +12,17 @@ def insert_to_db(host, user, passwd, database, dict):
     mydb = mysql.connector.connect(host=host, user=user, password=passwd, database=database)
     cur = mydb.cursor()
     now = datetime.now()
-    cur.execute('CREATE DATABASE IF NOT EXISTS `SVN`')
+    cur.execute(f'CREATE DATABASE IF NOT EXISTS `{database}`')
 
     tbl_name = f'SVN_STAT_{now.strftime("%y%m%d_%H%M%S")}'
     cur.execute(f"""
-        CREATE TABLE IF NOT EXISTS `SVN`.`{tbl_name}` (
+        CREATE TABLE IF NOT EXISTS `{database}`.`{tbl_name}` (
             name VARCHAR(128) NOT NULL PRIMARY KEY, 
             commit_count INT DEFAULT 0, 
             update_files INT DEFAULT 0, 
             update_lines INT DEFAULT 0
         )""")
-    query = f'INSERT INTO `SVN`.`{tbl_name}` VALUES '
+    query = f'INSERT INTO `{database}`.`{tbl_name}` VALUES '
 
     #print(dict)
     comma = True

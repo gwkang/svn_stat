@@ -1,0 +1,12 @@
+{
+    "xml_file": "svn_log.xml",
+    "path": "C:\\path\\",
+    "author_ignore": ["name3"],
+    "author_white": ["name1", "name2"],
+    "start_date": "2020-08-03",
+    "end_date": "2020-11-06",
+    "mysql_host": "127.0.0.1",
+    "mysql_user": "myuser",
+    "mysql_pass": "mypassowrd",
+    "mysql_database": "DBNAME"
+}
