@@ -37,7 +37,7 @@ def insert_to_db(json_data, dict):
             continue
         if key in json_data['author_ignore']:
             continue
-        
+
         if comma == False:
             query += ","
         query += f"('{key}', {val['commit_count']}, {val['update_files']}, {val['update_lines']})"
@@ -67,7 +67,7 @@ def read_commit(f, dict, size):
 
         if not line: break
 
-        pbar.update(len(line))
+        pbar.update(f.tell() - pbar.n)
 
         mo = commit_r.search(line)
         if mo != None:
@@ -81,7 +81,6 @@ def read_commit(f, dict, size):
 
                 lines = 0
                 files = 0
-                pbar.update(1)
             continue
 
         mo = author_r.search(line)
@@ -111,6 +110,7 @@ def read_commit(f, dict, size):
         lines = 0
         files = 0
 
+    
     pbar.close()
 
 def main():
