@@ -58,11 +58,14 @@ def read_commit(f, dict, size):
     author = ''
     files = 0
     lines = 0
+    err_count = 0
     
     while True:
         try:
             line = f.readline()
         except UnicodeDecodeError as _:
+            #print('UnicodeDecodeError!!')
+            err_count += 1
             continue
 
         if not line: break
@@ -112,6 +115,7 @@ def read_commit(f, dict, size):
 
     
     pbar.close()
+    print(f'Decode error count: {err_count}')
 
 def main():
     parser = argparse.ArgumentParser(description='Get subversion statistics.')
@@ -127,6 +131,7 @@ def main():
     with open(options.config) as json_file:
         json_data = json.load(json_file)
 
+        print(f'start_date: {json_data["start_date"]}, end_date: {json_data["end_date"]}')
         os.chdir(json_data['path'])
         os.system(f'git log --since="{json_data["start_date"]}" --until="{json_data["end_date"]}" -p > git.log')
         #print(json_data)
